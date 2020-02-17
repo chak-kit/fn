@@ -17,13 +17,14 @@ export const NavBarItems = (props) => {
       })
       .catch(error => console.log(error));
   }, [props.catalogName]);
+  console.log(products);
 
   return (
     <div>
       {products.map((c, index) => (
         <div key={index}>
           <div>
-            <h3>
+            <h3 >
               {c.category}
             </h3>
           </div>
