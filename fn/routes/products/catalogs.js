@@ -37,7 +37,9 @@ router.get('/:name', async (req, res) => {
         }
         console.log(catalog);
         const { products } = catalog;
-        res.status(200).send(products);
+      res.set('Access-Control-Allow-Origin', ['*']);
+
+      res.status(200).send(products);
     } catch (err) {
         res.status(400).send(err);
     }
