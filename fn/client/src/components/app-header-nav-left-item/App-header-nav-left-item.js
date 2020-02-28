@@ -40,18 +40,17 @@ export default class AppHeaderNavLeftItem extends React.Component {
 
   render() {
     return (
-      <div>
-        <Dropdown className="d-inline-block" onMouseOver={() => this.onMouseEnter('menDropdownOpen')}
+        <Dropdown className="d-inline-block " onMouseOver={() => this.onMouseEnter('menDropdownOpen')}
                   onMouseLeave={() => this.onMouseLeave('menDropdownOpen')}
                   isOpen={this.state.menDropdownOpen} toggle={() => this.toggle('menDropdownOpen')}>
           <DropdownToggle  className='link-button'>
           <Link to={`/catalogs/${this.props.catalog}`} className='link-name'>{this.props.catalog}</Link>
           </DropdownToggle>
-          {/* <DropdownMenu>
+          <DropdownMenu>
             <DropdownItem> <CategoriesNav  className='categories-nav-down' catalog={this.props.catalog}/> </DropdownItem>
-          </DropdownMenu> */}
+          </DropdownMenu>
         </Dropdown>
-      </div>
+
     );
   }
 }
