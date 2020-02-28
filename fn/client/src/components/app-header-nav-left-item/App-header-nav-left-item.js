@@ -14,9 +14,7 @@ export default class AppHeaderNavLeftItem extends React.Component {
     this.onMouseEnter = this.onMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.state = {
-      menDropdownOpen: false,
-      womenDropdownOpen: false,
-      kidsDropdownOpen: false
+      dropdownOpen: false,
     };
   }
 
@@ -40,9 +38,9 @@ export default class AppHeaderNavLeftItem extends React.Component {
 
   render() {
     return (
-        <Dropdown className="d-inline-block " onMouseOver={() => this.onMouseEnter('menDropdownOpen')}
-                  onMouseLeave={() => this.onMouseLeave('menDropdownOpen')}
-                  isOpen={this.state.menDropdownOpen} toggle={() => this.toggle('menDropdownOpen')}>
+        <Dropdown className="d-inline-block " onMouseOver={() => this.onMouseEnter('dropdownOpen')}
+                  onMouseLeave={() => this.onMouseLeave('dropdownOpen')}
+                  isOpen={this.state.dropdownOpen} toggle={() => this.toggle('dropdownOpen')}>
           <DropdownToggle  className='link-button'>
           <Link to={`/catalogs/${this.props.catalog}`} className='link-name'>{this.props.catalog}</Link>
           </DropdownToggle>
