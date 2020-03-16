@@ -9,6 +9,17 @@ const addCart = (productName) => {
     })
   }
 };
+const removeCart = (productName) => {
+  return (dispatch) => {
+    console.log('Removed from cart');
+    console.log('Removed: ', productName );
+
+    dispatch({
+      type: 'REMOVE_PRODUCT_CART',
+      payload: productName
+    })
+  }
+};
 
 const getNumbers = () => {
   return (dispatch) =>{
@@ -18,7 +29,7 @@ const getNumbers = () => {
     })
   }
 };
-export  {addCart, getNumbers}
+export  {addCart, getNumbers, removeCart}
 
 
 
