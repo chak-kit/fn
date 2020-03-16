@@ -9,6 +9,7 @@ const addCart = (productName) => {
     })
   }
 };
+
 const removeCart = (productName) => {
   return (dispatch) => {
     console.log('Removed from cart');
@@ -16,6 +17,28 @@ const removeCart = (productName) => {
 
     dispatch({
       type: 'REMOVE_PRODUCT_CART',
+      payload: productName
+    })
+  }
+};
+
+const increaseItems = (productName) => {
+  return (dispatch) => {
+    console.log('increaseItems: ', productName );
+
+    dispatch({
+      type: 'INCREASE_ITEMS',
+      payload: productName
+    })
+  }
+};
+
+const decreaseItems = (productName) => {
+  return (dispatch) => {
+    console.log('decreaseItems: ', productName );
+
+    dispatch({
+      type: 'DECREASE_ITEMS',
       payload: productName
     })
   }
@@ -29,7 +52,7 @@ const getNumbers = () => {
     })
   }
 };
-export  {addCart, getNumbers, removeCart}
+export  {addCart, getNumbers, removeCart, increaseItems, decreaseItems}
 
 
 

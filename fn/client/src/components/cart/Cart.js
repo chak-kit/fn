@@ -4,11 +4,12 @@ import './Cart.css'
 import {Figure} from 'react-bootstrap'
 import Row from "react-bootstrap/Row";
 import Container from "@material-ui/core/Container/Container";
-import {removeCart} from '../../actions'
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {removeCart, increaseItems, decreaseItems} from '../../actions'
+import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Button from 'react-bootstrap/Button';
 
-const Cart = ({products, removeCart}) => {
+const Cart = ({products, removeCart, increaseItems, decreaseItems}) => {
   console.log(products);
   return (
     <div className='main-cart'>
@@ -24,7 +25,9 @@ const Cart = ({products, removeCart}) => {
                   {item.title}
                   <p> Price: {item.price * item.quantity} {item.currencyIcon}</p>
                   <p> Quantity: {item.quantity}</p>
-                  <FontAwesomeIcon icon={faTrash} onClick={() => removeCart(item)}/>
+                  <FontAwesomeIcon className='cart_icon' icon={faPlus} onClick ={() => increaseItems(item)}/>
+                  <FontAwesomeIcon className='cart_icon' icon={faMinus} onClick={() => decreaseItems(item)}/> <br/>
+                  <Button variant="dark" onClick={() => removeCart(item)}> REMOVE </Button>
                 </Figure.Caption>
               </Row>
             </Container>
@@ -36,7 +39,8 @@ const Cart = ({products, removeCart}) => {
 };
 
 const mapStateToProps = ({cartReducer: {products}}) => ({products});
+const mapDispatchToProps = {removeCart, decreaseItems, increaseItems};
 
-export default connect(mapStateToProps, {removeCart})(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 
 

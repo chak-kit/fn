@@ -30,3 +30,8 @@ p {
     margin: 0;
     font-size: 1.2rem;
 }
+.cart_icon{
+    margin: 10px 5px 10px 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
