@@ -68,6 +68,13 @@ export default class StoreService {
     // return catalogs;
   };
 
+  getProductsForEachBrand = async (catalog) => {
+    let queryString = `products/each-for-brand?catalog=${catalog}`;
+    const products = await this.getResource(queryString);
+    return products;
+  };
+
+
   getAllCatalogs = async () => {
     const catalogs = await this.getResource('catalogs');
     return catalogs;

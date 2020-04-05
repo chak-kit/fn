@@ -8,12 +8,7 @@ import { filterAddBrand, productsLoaded } from "../../actions";
 
 const CategoriesCarousel = ({ storeService, catalog, brand, products }) => {
   const [getBrands, setBrands] = useState([]);
-  const [getProd, setProd] = useState([]);
-
-  let brands = getBrands.map((item) => item.brand);
-  console.log(brands);
-  console.log(getBrands);
-  console.log( getProd);
+  const [getProd, setProd] = useState([])
 
   useEffect(() => {
     storeService
@@ -23,17 +18,13 @@ const CategoriesCarousel = ({ storeService, catalog, brand, products }) => {
   }, [storeService]);
 
   useEffect(() => {
-    let productsArray = [];
-    brands.forEach((item) => {
-      storeService
-        .getProductsByFilter({ catalog, brand: item, postsPerPage: 1 })
-        .then((res) => {
-          productsArray.push(res.products[0]);
-          console.log(res.products[0]);
-        });
-      console.log( productsArray)
-    });
-    setProd(productsArray)
+    storeService
+      .getProductsForEachBrand(catalog)
+      .then((res) => {
+        setProd(res.products);
+        console.log(res.products);
+      });
+
   }, [
     brand,
     // storeService,
@@ -42,40 +33,24 @@ const CategoriesCarousel = ({ storeService, catalog, brand, products }) => {
     catalog
   ]);
 
-//   return (
-//     <Carousel>
-//       {getProd.map((item) => (
-//         <Carousel.Item key={item.id}>
-//         <Carousel.Caption>
-//             <h3>{item.brand[0]}</h3>
-//           </Carousel.Caption>
-//           <img className="d-block w-100" src={`/images/products/${item.images[0]}`} alt="First slide"/>
-//         </Carousel.Item>
-//       ))}
-//     </Carousel>
-//   );
-// };
+  console.log(products);
 
   return (
-    <div>
-      <ul>
-        {getProd.map((item) => (
-          <li key={item.id}>
-            <div>
-              <img src={`/images/products/${item.images[0]}`}/>
-              <p> {item.brand}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    <Carousel >
+      {getProd.map((item) => (
+        <Carousel.Item key={item.id}>
+          <img className="d-block w-100" src={`/images/products/${item.images[0]}`}/>
+          <Carousel.Caption><h3>{item.brand}</h3></Carousel.Caption>
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  )
 };
 
 const mapStateToProps = ({
-                           productsList: { products },
-                           filter: { getBrands }
-                         }) => ({ getBrands, products });
+                           productsList: { currentPage, products },
+                           filter: { brand }
+                         }) => ({ brand });
 
 const mapDispatchToProps = (dispatch) => ({
   filterAddBrand: (brand) => dispatch(filterAddBrand(brand)),

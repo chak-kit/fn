@@ -10,6 +10,22 @@ const { productValidationRules, validate } = require('../../middleware/validator
 
 const router = express.Router();
 
+router.get('/each-for-brand', async (req, res) => {
+  const { query } = req;
+
+  try {
+    const products = await getProductForEachCatalog(query);
+    if (!products) {
+      throw { message: 'Products not found ' };
+    }
+
+    const productsToSend = prepareProductsToSend(products);
+    res.status(200).send({ products: productsToSend, pagesCount: 1, foundProductsNumber: products.length});
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+});
+
 router.get('/', async (req, res) => {
     const { query } = req;
 
@@ -145,6 +161,27 @@ router.delete('/:id', async (req, res) => {
         res.status(400).send(err);
     }
 });
+
+const getProductForEachCatalog = async (query) => {
+  let products = [];
+
+  const { catalog } = query;
+  const foundCatalog = await Catalogs.findOne({ catalog: catalog });
+
+  const brands = await Brands.find();
+  for (let brand of brands) {
+    const product = await Products.findOne({brand: brand.id, catalog: foundCatalog.id})
+      .populate("catalog")
+      .populate("category")
+      .populate("color")
+      .populate("brand");
+
+    products.push(product);
+  }
+
+  return products;
+}
+
 
 const getFilters = async query => {
     const { catalog, category, color, brand, searchTerm } = query;
